@@ -1,8 +1,8 @@
 import http from 'node:http';
 import {read} from './token.mjs';
 const records=Object.freeze({
- demo_one:{id:'demo_one',displayName:'Synthetic Location One',tenantId:'tenant-a',version:1},
- demo_two:{id:'demo_two',displayName:'Synthetic Location Two',tenantId:'tenant-b',version:1}
+ demo_one:{id:'demo_one',label:'Synthetic Location One',tenantId:'tenant-a',version:1},
+ demo_two:{id:'demo_two',label:'Synthetic Location Two',tenantId:'tenant-b',version:1}
 });
 const secret=process.env.LAB_SECRET;
 if(!secret||secret.length<32)throw Error('LAB_SECRET must be at least 32 characters');
