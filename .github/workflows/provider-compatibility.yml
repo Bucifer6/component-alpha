@@ -1,0 +1,38 @@
+name: Provider compatibility
+on:
+  pull_request:
+  merge_group:
+permissions:
+  contents: read
+jobs:
+  consumer-contract:
+    name: provider-consumer-v1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          path: component-alpha
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Bucifer6/module-isolation-lab
+          ref: b78b42a9d9f285b267e4b3b0c572987f1864de90
+          path: lab
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Bucifer6/component-beta
+          ref: 6e893475da25e22a34e4184989b93f7f8c4f76e7
+          path: component-beta
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Bucifer6/component-shell
+          ref: d8e9dd7c756e956f811ecc3a609dbdc59e52e13d
+          path: component-shell
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - run: node --test lab/tests/cross-repo.mjs
